@@ -2,17 +2,19 @@ import { useState } from 'react';
 import { Botao } from '../Botao';
 import CampoTexto from '../CampoTexto';
 import { ListaSuspensa } from '../ListaSuspensa';
+import { v4 as uuidv4 } from 'uuid';
 import './index.css';
 
 export const Formulario = ({cadastro, times}) => {
     const [nome, setNome] = useState('');
     const [cargo, setCargo] = useState('');
-    const [img, setImg] = useState('');
+    const [img, setImg] = useState('https://github.com/');
     const [time, setTime] = useState('Programação');
 
     const aoSalvar = (e) => {
         e.preventDefault();
         cadastro({
+            id: uuidv4(),
             nome,
             cargo,
             img,
@@ -20,8 +22,8 @@ export const Formulario = ({cadastro, times}) => {
         })
         setNome('')
         setCargo('')
-        setImg('')
-        setTime('')
+        setImg('https://github.com/')
+        setTime('Programação')
     }
 
     return (

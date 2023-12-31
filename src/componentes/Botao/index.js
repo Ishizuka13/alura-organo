@@ -1,7 +1,7 @@
 import './index.css'
 
-export const Botao = ({children}) => {
+export const Botao = ({children, onClick}) => {
     return (
-        <button className='botao'>{children}</button>
+        <button className='botao' onClick={onClick}>{children}</button>
     )
 }
