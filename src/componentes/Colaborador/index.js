@@ -1,9 +1,11 @@
+import { Botao } from '../Botao';
 import './index.css';
  
-const Colaborador = ({nome, cargo, img, corDeFundo}) => {
+const Colaborador = ({nome, cargo, img, corDeFundo, aoDeletar, id}) => {
     return (
         <div className='colaborador'  >
             <div className='cabecalho' style={{backgroundColor: corDeFundo}} >
+                <Botao onClick={() => aoDeletar(id)}>del</Botao>
                 <img src={img} alt={nome} />
             </div>
             <div className='rodape'>
