@@ -5,11 +5,13 @@ import { ListaSuspensa } from '../ListaSuspensa';
 import { v4 as uuidv4 } from 'uuid';
 import './index.css';
 
-export const Formulario = ({cadastro, times}) => {
+export const Formulario = ({cadastro, times, cadastrarTime}) => {
     const [nome, setNome] = useState('');
     const [cargo, setCargo] = useState('');
     const [img, setImg] = useState('https://github.com/');
     const [time, setTime] = useState('Programação');
+    const [nomeTime, setNomeTime] = useState('');
+    const [corTime, setCorTime] = useState('');
 
     const aoSalvar = (e) => {
         e.preventDefault();
@@ -20,10 +22,23 @@ export const Formulario = ({cadastro, times}) => {
             img,
             time
         })
+
+
         setNome('')
         setCargo('')
         setImg('https://github.com/')
         setTime('Programação')
+    }
+
+    const aoSalvarTime = (e) => {
+        e.preventDefault();
+        cadastrarTime({
+            id: uuidv4(),
+            nome: nomeTime,
+            corPrimaria: corTime
+        })
+        setNomeTime('')
+        setCorTime('')
     }
 
     return (
@@ -36,6 +51,14 @@ export const Formulario = ({cadastro, times}) => {
                     <ListaSuspensa itens={times} onChange={e => setTime(e)} label="Time" required={true} />
                     <Botao>
                         Criar card
+                    </Botao>
+            </form>
+            <form onSubmit={aoSalvarTime}>
+                <h2>Preecha os dados para criar um novo time</h2>
+                    <CampoTexto onChange={e => setNomeTime(e)} value={nomeTime} label="Nome" type="text" placeholder="Digite o nome do time" required={true}/>
+                    <CampoTexto onChange={e => setCorTime(e)} value={corTime} label="Cor" type="text" placeholder="Digite a cor do time" required={true}/>
+                    <Botao>
+                        Criar time
                     </Botao>
             </form>
         </section>

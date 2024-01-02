@@ -6,68 +6,64 @@ import Footer from './componentes/Footer';
 import { v4 as uuidv4 } from 'uuid';
 
 function App() {
-  const times = [
+  const [times, setTimes] = useState([
     {
       id: uuidv4(),
       nome:"Programação",
-      corPrimaria: '#57C278',
-      corSecundaria: '#D9F7E9'
+      corPrimaria: '#57C278'
     },
     {
       id: uuidv4(),
       nome:'Couch',
-      corPrimaria: '#82CFFA',
-      corSecundaria: '#F0F8E2'
+      corPrimaria: '#82CFFA'
     },
     {
       id: uuidv4(),
       nome:'Analistas de Sistemas',
-      corPrimaria: '#E06869',
-      corSecundaria: '#FDE7E8'
+      corPrimaria: '#E06869'
     },
     {
       id: uuidv4(),
       nome:'Designers',
-      corPrimaria: '#DB6EBF',
-      corSecundaria: '#FAE9F5'
+      corPrimaria: '#DB6EBF'
     },
     {
       id: uuidv4(),
       nome:'Chefe',
-      corPrimaria: '#FFBA05',
-      corSecundaria: '#FFF5D9'
+      corPrimaria: '#FFBA05'
     },
     {
       id: uuidv4(),
       nome:'Gerente', 
-      corPrimaria: '#FF8A29',
-      corSecundaria: '#FFEEDF'
+      corPrimaria: '#FF8A29'
     },
-  ]
+  ])
 
   const [colaboradores, setColaboradores] = useState([])
 
   const aoCadastrar = (colaborador) => {
+    console.log(...colaboradores, colaborador)
     setColaboradores([...colaboradores, colaborador])
-    console.log([...colaboradores, colaborador])
-    console.log(times[0].id)
+  }
+
+  const aoCadastrarTime = (time) => {
+    console.log([...times, time])
+    setTimes([...times, time])
   }
 
   const Delete = (e) => {
     let novaLista = colaboradores.filter(colaboradores => colaboradores.id !== e)
-    console.log(novaLista)
     setColaboradores(novaLista)
   }
 
   return (
     <div className="App">
         <Banner />
-        <Formulario cadastro={e => aoCadastrar(e)} times={times.map(e => e.nome)} />    
+        <Formulario cadastro={e => aoCadastrar(e)} times={times.map(e => e.nome)} cadastrarTime={e => aoCadastrarTime(e)}/>    
         {times.map((e, index) => <Time 
           key={index} 
           nome={e.nome} 
           corPrimaria={e.corPrimaria} 
-          corSecundaria={e.corSecundaria} 
           colaboradores={colaboradores.filter(colaboradores => colaboradores.time === e.nome)}
           aoDeletar={Delete}
         />)}
