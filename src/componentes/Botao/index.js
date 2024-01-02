@@ -2,6 +2,6 @@ import './index.css'
 
 export const Botao = ({children, onClick}) => {
     return (
-        <button className='botao' onClick={onClick}>{children}</button>
+        <button className={`botao botao-${children}`} onClick={onClick}>{children}</button>
     )
 }

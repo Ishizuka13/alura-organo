@@ -1,11 +1,16 @@
 import { Botao } from '../Botao';
 import './index.css';
  
-const Colaborador = ({nome, cargo, img, corDeFundo, aoDeletar, id}) => {
+const Colaborador = ({nome, cargo, img, corDeFundo, aoDeletar, aoFavoritar, colaborador}) => {
     return (
         <div className='colaborador'  >
             <div className='cabecalho' style={{backgroundColor: corDeFundo}} >
-                <Botao onClick={() => aoDeletar(id)}>del</Botao>
+                <Botao onClick={() => aoDeletar(colaborador.id)}>del</Botao>
+                {colaborador.favorito ? 
+                <Botao onClick={() => aoFavoritar(colaborador.id)}>Favorito</Botao>
+                : 
+                <Botao onClick={() => aoFavoritar(colaborador.id)}>FAV</Botao>
+                }
                 <img src={img} alt={nome} />
             </div>
             <div className='rodape'>
