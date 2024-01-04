@@ -42,11 +42,14 @@ function App() {
   const [colaboradores, setColaboradores] = useState([])
 
   const aoCadastrar = (colaborador) => {
-    console.log([...colaboradores, colaborador])
     setColaboradores([...colaboradores, colaborador])
   }
 
   const aoCadastrarTime = (time) => {
+    if(times.find(times => times.nome.toLowerCase() === time.nome.toLowerCase())) {
+      alert('Time já registrado!')
+      return
+    }
     setTimes([...times, time])
   }
 
@@ -60,7 +63,6 @@ function App() {
       if(colaborador.id === id) colaborador.favorito = !colaborador.favorito
       return colaborador
     }))
-    console.log(colaboradores)
   }
 
   return (

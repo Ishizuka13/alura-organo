@@ -57,7 +57,7 @@ export const Formulario = ({cadastro, times, cadastrarTime}) => {
             <form onSubmit={aoSalvarTime}>
                 <h2>Preecha os dados para criar um novo time</h2>
                     <CampoTexto onChange={e => setNomeTime(e)} value={nomeTime} label="Nome" type="text" placeholder="Digite o nome do time" required={true}/>
-                    <CampoTexto onChange={e => setCorTime(e)} value={corTime} label="Cor" type="text" placeholder="Digite a cor do time" required={true}/>
+                    <CampoTexto style={{padding: '0', width: '50%'}} onChange={e => setCorTime(e)} value={corTime} label="Cor" type="color" placeholder="Digite a cor do time" required={true}/>
                     <Botao>
                         Criar time
                     </Botao>
