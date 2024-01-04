@@ -46,7 +46,6 @@ function App() {
   }
 
   const aoCadastrarTime = (time) => {
-    console.log(time)
     if(times.find(times => times.nome.toLowerCase() === time.nome.toLowerCase())) {
       alert('Time já registrado!')
       return

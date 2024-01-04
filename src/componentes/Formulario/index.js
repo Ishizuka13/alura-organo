@@ -17,6 +17,7 @@ export const Formulario = ({cadastro, times, cadastrarTime}) => {
         e.preventDefault();
         cadastro({
             id: uuidv4(),
+            favorito: false,
             nome,
             cargo,
             img,

@@ -39,10 +39,28 @@
     padding: 0 16px;
 }
 
-.cabecalho button {
+.botao-del {
     align-self: flex-end;
     padding: 8px;
     border-radius: 0 10px;
     width: auto;
     margin-bottom: -50px;
+}
+
+.botao-FAV {
+    align-self: flex-start;
+    padding: 8px;
+    border-radius: 10px 0;
+    width: auto;
+    margin-bottom: -50px;
+    margin-top: 6.2px;
+}
+
+.botao-Favorito {
+    align-self: flex-start;
+    padding: 8px;
+    border-radius: 10px 0;
+    width: auto;
+    margin-bottom: -50px;
+    margin-top: 6.2px;
 }
