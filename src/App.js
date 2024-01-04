@@ -42,18 +42,28 @@ function App() {
   const [colaboradores, setColaboradores] = useState([])
 
   const aoCadastrar = (colaborador) => {
-    console.log(...colaboradores, colaborador)
     setColaboradores([...colaboradores, colaborador])
   }
 
   const aoCadastrarTime = (time) => {
-    console.log([...times, time])
+    console.log(time)
+    if(times.find(times => times.nome.toLowerCase() === time.nome.toLowerCase())) {
+      alert('Time já registrado!')
+      return
+    }
     setTimes([...times, time])
   }
 
   const Delete = (e) => {
     let novaLista = colaboradores.filter(colaboradores => colaboradores.id !== e)
     setColaboradores(novaLista)
+  }
+
+  const Favoritar = (id) => {
+    setColaboradores(colaboradores.map(colaborador => {
+      if(colaborador.id === id) colaborador.favorito = !colaborador.favorito
+      return colaborador
+    }))
   }
 
   return (
@@ -66,6 +76,7 @@ function App() {
           corPrimaria={e.corPrimaria} 
           colaboradores={colaboradores.filter(colaboradores => colaboradores.time === e.nome)}
           aoDeletar={Delete}
+          aoFavoritar={Favoritar}
         />)}
         <Footer />
     </div>
