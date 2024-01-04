@@ -11,7 +11,7 @@ export const Formulario = ({cadastro, times, cadastrarTime}) => {
     const [img, setImg] = useState('https://github.com/');
     const [time, setTime] = useState('Programação');
     const [nomeTime, setNomeTime] = useState('');
-    const [corTime, setCorTime] = useState('');
+    const [corTime, setCorTime] = useState('#000000');
 
     const aoSalvar = (e) => {
         e.preventDefault();
@@ -39,7 +39,7 @@ export const Formulario = ({cadastro, times, cadastrarTime}) => {
             corPrimaria: corTime
         })
         setNomeTime('')
-        setCorTime('')
+        setCorTime('#000000')
     }
 
     return (
