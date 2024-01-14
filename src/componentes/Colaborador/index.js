@@ -6,11 +6,8 @@ const Colaborador = ({nome, cargo, img, corDeFundo, aoDeletar, aoFavoritar, cola
         <div className='colaborador'  >
             <div className='cabecalho' style={{backgroundColor: corDeFundo}} >
                 <Botao onClick={() => aoDeletar(colaborador.id)}>del</Botao>
-                {colaborador.favorito ? 
-                <Botao onClick={() => aoFavoritar(colaborador.id)}>Favorito</Botao>
-                : 
-                <Botao onClick={() => aoFavoritar(colaborador.id)}>FAV</Botao>
-                }
+                
+                <Botao onClick={() => aoFavoritar(colaborador.id)}>{colaborador.favorito ? 'Favorito' : 'FAV'}</Botao>
                 <img src={img} alt={nome} />
             </div>
             <div className='rodape'>
