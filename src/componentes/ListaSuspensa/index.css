@@ -15,3 +15,10 @@
     font-size: 24px;
     padding: 24px;
 }
+
+.deleteButton {
+    background-color: grey;
+    border-radius: 50%;
+    color: white;
+    width: 50px;
+}
