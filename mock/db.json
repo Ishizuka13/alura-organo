@@ -1,0 +1,74 @@
+{
+  "colaborator": [
+    {
+      "id": "a69e7a19-6065-48cd-9f03-ada790ef3460",
+      "favorito": true,
+      "nome": "Miguel Ishizuka",
+      "cargo": "Aprendiz",
+      "img": "https://github.com/Ishizuka13.png",
+      "time": "Data Science"
+    }
+  ],
+  "teams": [
+    {
+      "id": "1",
+      "nome": "Programação",
+      "corPrimaria": "#57C278"
+    },
+    {
+      "id": "2",
+      "nome": "Couch",
+      "corPrimaria": "#82CFFA"
+    },
+    {
+      "id": "3",
+      "nome": "Analistas de Sistemas",
+      "corPrimaria": "#E06869"
+    },
+    {
+      "id": "4",
+      "nome": "Designers",
+      "corPrimaria": "#DB6EBF"
+    },
+    {
+      "id": "5",
+      "nome": "Chefe",
+      "corPrimaria": "#FFBA05"
+    },
+    {
+      "id": "6",
+      "nome": "Gerente",
+      "corPrimaria": "#FF8A29"
+    },
+    {
+      "id": "4881c64e-dd5c-426a-8faa-0216cdff5cf4",
+      "nome": "dassdfsfsd",
+      "corPrimaria": "#000000"
+    },
+    {
+      "id": "d9ef1a9e-6e91-48cf-8408-e804daa74458",
+      "nome": "sdfsdfsdf",
+      "corPrimaria": "#00ff33"
+    },
+    {
+      "id": "f20239b2-4f37-4079-b677-c097509d38f8",
+      "nome": "sdfsdfsf",
+      "corPrimaria": "#c17676"
+    },
+    {
+      "id": "eee43efd-9dca-4c63-8826-df1ab5e0a8d6",
+      "nome": "dsfsfsdf",
+      "corPrimaria": "#ff0000"
+    },
+    {
+      "id": "fa4096cd-47f5-4789-9a59-a1e85db3433e",
+      "nome": "Data Science",
+      "corPrimaria": "#7e0101"
+    },
+    {
+      "id": "84ce557c-2389-4366-b943-ec70f2697f6a",
+      "nome": "Front-End",
+      "corPrimaria": "#6cddf9"
+    }
+  ]
+}

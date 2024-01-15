@@ -1,70 +1,82 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {Banner} from './componentes/Banner';
 import { Formulario } from './componentes/Formulario';
 import { Time } from './componentes/Times';
 import Footer from './componentes/Footer';
-import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
+import {v4 as uuidv4} from 'uuid';
 
 function App() {
-  const [times, setTimes] = useState([
-    {
-      id: uuidv4(),
-      nome:"Programação",
-      corPrimaria: '#57C278'
-    },
-    {
-      id: uuidv4(),
-      nome:'Couch',
-      corPrimaria: '#82CFFA'
-    },
-    {
-      id: uuidv4(),
-      nome:'Analistas de Sistemas',
-      corPrimaria: '#E06869'
-    },
-    {
-      id: uuidv4(),
-      nome:'Designers',
-      corPrimaria: '#DB6EBF'
-    },
-    {
-      id: uuidv4(),
-      nome:'Chefe',
-      corPrimaria: '#FFBA05'
-    },
-    {
-      id: uuidv4(),
-      nome:'Gerente', 
-      corPrimaria: '#FF8A29'
-    },
-  ])
-
+  
+  const serverTimes = axios.get(`http://localhost:3000/teams`)
+  .then(response => response.data)
+  .then(dados => {
+    setTimes(dados)
+  })
+  
+  
+  
   const [colaboradores, setColaboradores] = useState([])
-
+  const [times, setTimes] = useState([serverTimes])
+  
   const aoCadastrar = (colaborador) => {
-    setColaboradores([...colaboradores, colaborador])
+    axios.post("http://localhost:3000/colaborator", {
+        id: uuidv4(),
+        favorito: false,
+        nome: colaborador.nome,
+        cargo: colaborador.cargo,
+        img: colaborador.img,
+        time: colaborador.time
+    })
+    // setColaboradores([...colaboradores, colaborador])
   }
-
+  
+  
   const aoCadastrarTime = (time) => {
     if(times.find(times => times.nome.toLowerCase() === time.nome.toLowerCase())) {
       alert('Time já registrado!')
       return
     }
-    setTimes([...times, time])
+    axios.post("http://localhost:3000/teams", {
+      id: uuidv4(),
+      nome: time.nome,
+      corPrimaria: time.corPrimaria,
+    })
   }
-
-  const Delete = (e) => {
-    let novaLista = colaboradores.filter(colaboradores => colaboradores.id !== e)
-    setColaboradores(novaLista)
+  
+  const Delete = (id) => {
+    axios.delete(`http://localhost:3000/colaborator/${id}`)
   }
-
+  
   const Favoritar = (id) => {
     setColaboradores(colaboradores.map(colaborador => {
-      if(colaborador.id === id) colaborador.favorito = !colaborador.favorito
+      if(colaborador.id === id) {
+        let newFavorito = colaborador.favorito = !colaborador.favorito
+        colaborador.favorito = !colaborador.favorito
+        axios.put(`http://localhost:3000/colaborator/${id}`, {
+          id: id,
+          favorito: newFavorito,
+          nome: colaborador.nome,
+          cargo: colaborador.cargo,
+          img: colaborador.img,
+          time: colaborador.time 
+        })
+      }
       return colaborador
     }))
+
+    
+
   }
 
+  useEffect(() => {
+    axios.get(`http://localhost:3000/colaborator`)
+    .then(response => response.data)
+    .then(dados => {
+      setColaboradores(dados)
+    })
+  }, [aoCadastrar, Delete])
+  
   return (
     <div className="App">
         <Banner />
@@ -76,7 +88,7 @@ function App() {
           colaboradores={colaboradores.filter(colaboradores => colaboradores.time === e.nome)}
           aoDeletar={Delete}
           aoFavoritar={Favoritar}
-        />)}
+          />)}
         <Footer />
     </div>
   );
