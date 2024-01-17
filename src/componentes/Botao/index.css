@@ -18,3 +18,28 @@
     color: rgb(0, 255, 251);
     transition: all ease-in-out 0.2s
 }
+
+.botao-Deletar {
+    display: flex;
+    justify-content: center;
+    text-wrap: nowrap;
+    align-items: center;
+    width: 10%;
+    height: 5vh;
+    font-size: 20px;
+}
+
+.botao-CONFIRMAR {
+    display: flex;    
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    margin-right: 12px;
+}
+
+.botao-FECHAR {
+    display: flex;    
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+}
