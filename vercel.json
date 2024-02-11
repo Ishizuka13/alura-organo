@@ -2,10 +2,10 @@
   "version": 2,
   "builds": [
     {
-      "src": "server.tsx",
+      "src": "src/App.tsx",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": ["db.json"]
+        "includeFiles": ["mock/db.json"]
       }
     }
   ],
