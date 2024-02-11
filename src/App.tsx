@@ -1,26 +1,28 @@
 import { useEffect, useState } from "react";
 import { Banner } from "./componentes/Banner";
 import { DeleteTeamFormulario } from "./componentes/DeleteTeamFormulario";
-import { Time } from "./componentes/Times";
+import { Time, TimeCadastroProps } from "./componentes/Times";
 import Footer from "./componentes/Footer";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { Botao } from "./componentes/Botao";
 import { Formulario } from "./componentes/Formulario";
+import { ColaboradorProps } from "./componentes/Colaborador";
 
 function App() {
-  const serverTimes = axios
-    .get(`http://localhost:3000/teams`)
-    .then((response) => response.data)
-    .then((dados) => {
-      setTimes(dados);
-    });
+  const [colaboradores, setColaboradores] = useState<ColaboradorProps[]>([]);
+  const [times, setTimes] = useState<TimeCadastroProps[]>([]);
 
-  const [colaboradores, setColaboradores] = useState([]);
-  const [ToggleFormDeleteTeam, setToggleFormDeleteTeam] = useState(false);
-  const [times, setTimes] = useState([serverTimes]);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/teams`)
+      .then((response) => response.data)
+      .then((dados) => {
+        setTimes(dados);
+      });
+  }, [times]);
 
-  const aoCadastrar = (colaborador) => {
+  const aoCadastrar = (colaborador: ColaboradorProps) => {
     axios.post("http://localhost:3000/colaborator", {
       id: uuidv4(),
       favorito: false,
@@ -31,7 +33,7 @@ function App() {
     });
   };
 
-  const aoCadastrarTime = (time) => {
+  const aoCadastrarTime = (time: TimeCadastroProps) => {
     if (
       times.find(
         (times) => times.nome.toLowerCase() === time.nome.toLowerCase()
@@ -47,26 +49,27 @@ function App() {
     });
   };
 
-  const Delete = (id) => {
+  const Delete = (id: string) => {
     axios.delete(`http://localhost:3000/colaborator/${id}`);
   };
 
-  const DeleteTime = (nome) => {
-    setToggleFormDeleteTeam(false);
-    let colaboradorTime = colaboradores.find(
+  const DeleteTime = (nome: string) => {
+    const colaboradorTime = colaboradores.find(
       (colaborador) => colaborador.time === nome
-    );
-    let time = times.find((time) => time.nome === nome);
+    )?.id;
+    const time = times.find((time) => time.nome === nome)?.id;
+    console.log(time);
+    if (colaboradorTime !== undefined)
+      axios.delete(`http://localhost:3000/colaborator/${colaboradorTime}`);
     try {
-      axios.delete(`http://localhost:3000/colaborator/${colaboradorTime.id}`);
-      axios.delete(`http://localhost:3000/teams/${time.id}`);
-      alert("SUCESSO!");
+      axios.delete(`http://localhost:3000/teams/${time}`);
     } catch (err) {
+      alert(err);
       return;
     }
   };
 
-  const Favoritar = (id) => {
+  const Favoritar = (id: string) => {
     setColaboradores(
       colaboradores.map((colaborador) => {
         if (colaborador.id === id) {
@@ -97,24 +100,17 @@ function App() {
 
   return (
     <div className="App">
-      <Banner />
+      <Banner
+        src="/imagens/banner.png"
+        alt="Banner principal da página do Organo"
+      />
       <Formulario
+        deleteTime={DeleteTime}
         cadastro={(e) => aoCadastrar(e)}
         times={times.map((e) => e.nome)}
         cadastrarTime={(e) => aoCadastrarTime(e)}
-        deletarTime={(e) => DeleteTime(e)}
       />
-      {ToggleFormDeleteTeam === false && (
-        <Botao onClick={() => setToggleFormDeleteTeam(!ToggleFormDeleteTeam)}>
-          Deletar Time
-        </Botao>
-      )}
-      {ToggleFormDeleteTeam && (
-        <DeleteTeamFormulario
-          closeForm={() => setToggleFormDeleteTeam(false)}
-          deletarTime={DeleteTime}
-        />
-      )}
+
       {times.map((e, index) => (
         <Time
           key={index}
