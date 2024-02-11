@@ -14,7 +14,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get(`${server}teams`)
+      .get(`${server}/teams`)
       .then((response) => response.data)
       .then((dados) => {
         setTimes(dados);
