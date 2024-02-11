@@ -12,7 +12,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "server.tsx"
+      "dest": "src/App.tsx"
     }
   ]
 }
