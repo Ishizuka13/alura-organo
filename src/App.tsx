@@ -1,29 +1,28 @@
 import { useEffect, useState } from "react";
 import { Banner } from "./componentes/Banner";
-import { DeleteTeamFormulario } from "./componentes/DeleteTeamFormulario";
 import { Time, TimeCadastroProps } from "./componentes/Times";
 import Footer from "./componentes/Footer";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { Botao } from "./componentes/Botao";
 import { Formulario } from "./componentes/Formulario";
 import { ColaboradorProps } from "./componentes/Colaborador";
 
 function App() {
   const [colaboradores, setColaboradores] = useState<ColaboradorProps[]>([]);
   const [times, setTimes] = useState<TimeCadastroProps[]>([]);
+  const server = `https://json-test-six.vercel.app`;
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/teams`)
+      .get(`${server}teams`)
       .then((response) => response.data)
       .then((dados) => {
         setTimes(dados);
       });
-  }, [times]);
+  }, [times, server]);
 
   const aoCadastrar = (colaborador: ColaboradorProps) => {
-    axios.post("http://localhost:3000/colaborator", {
+    axios.post(`${server}/colaborator`, {
       id: uuidv4(),
       favorito: false,
       nome: colaborador.nome,
@@ -42,7 +41,7 @@ function App() {
       alert("Time já registrado!");
       return;
     }
-    axios.post("http://localhost:3000/teams", {
+    axios.post(`${server}/teams`, {
       id: uuidv4(),
       nome: time.nome,
       corPrimaria: time.corPrimaria,
@@ -50,7 +49,7 @@ function App() {
   };
 
   const Delete = (id: string) => {
-    axios.delete(`http://localhost:3000/colaborator/${id}`);
+    axios.delete(`${server}/colaborator${id}`);
   };
 
   const DeleteTime = (nome: string) => {
@@ -60,9 +59,9 @@ function App() {
     const time = times.find((time) => time.nome === nome)?.id;
     console.log(time);
     if (colaboradorTime !== undefined)
-      axios.delete(`http://localhost:3000/colaborator/${colaboradorTime}`);
+      axios.delete(`${server}/colaborator/${colaboradorTime}`);
     try {
-      axios.delete(`http://localhost:3000/teams/${time}`);
+      axios.delete(`${server}/teams/${time}`);
     } catch (err) {
       alert(err);
       return;
@@ -75,7 +74,7 @@ function App() {
         if (colaborador.id === id) {
           let newFavorito = (colaborador.favorito = !colaborador.favorito);
           colaborador.favorito = !colaborador.favorito;
-          axios.put(`http://localhost:3000/colaborator/${id}`, {
+          axios.put(`${server}/colaborator/${id}`, {
             id: id,
             favorito: newFavorito,
             nome: colaborador.nome,
@@ -91,12 +90,12 @@ function App() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/colaborator`)
+      .get(`${server}/colaborator`)
       .then((response) => response.data)
       .then((dados) => {
         setColaboradores(dados);
       });
-  }, [aoCadastrar, Delete]);
+  }, [aoCadastrar, Delete, server]);
 
   return (
     <div className="App">
