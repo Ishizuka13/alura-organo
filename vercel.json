@@ -1,10 +1,4 @@
 {
-  "functions": {
-    "src/App.tsx": {
-      "memory": 1024,
-      "includeFiles": "mock/db.json"
-    }
-  },
   "rewrites": [
     {
       "source": "/(.*)",
