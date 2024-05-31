@@ -10,7 +10,7 @@ import { ColaboradorProps } from "./componentes/Colaborador";
 function App() {
   const [colaboradores, setColaboradores] = useState<ColaboradorProps[]>([]);
   const [times, setTimes] = useState<TimeCadastroProps[]>([]);
-  const server = `https://json-test-six.vercel.app`;
+  const server = `http://localhost:3000`;
 
   useEffect(() => {
     axios
@@ -19,7 +19,7 @@ function App() {
       .then((dados) => {
         setTimes(dados);
       });
-  }, [times, server]);
+  }, [times]);
 
   const aoCadastrar = (colaborador: ColaboradorProps) => {
     axios.post(`${server}/colaborator`, {
@@ -49,7 +49,7 @@ function App() {
   };
 
   const Delete = (id: string) => {
-    axios.delete(`${server}/colaborator${id}`);
+    axios.delete(`${server}/colaborator/${id}`);
   };
 
   const DeleteTime = (nome: string) => {
@@ -72,7 +72,7 @@ function App() {
     setColaboradores(
       colaboradores.map((colaborador) => {
         if (colaborador.id === id) {
-          let newFavorito = (colaborador.favorito = !colaborador.favorito);
+          const newFavorito = (colaborador.favorito = !colaborador.favorito);
           colaborador.favorito = !colaborador.favorito;
           axios.put(`${server}/colaborator/${id}`, {
             id: id,
@@ -95,7 +95,7 @@ function App() {
       .then((dados) => {
         setColaboradores(dados);
       });
-  }, [aoCadastrar, Delete, server]);
+  }, [aoCadastrar, Delete]);
 
   return (
     <div className="App">
